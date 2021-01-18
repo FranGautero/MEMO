@@ -4,4 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogInActivity"/>
+    tools:context=".ui.activities.LogInActivity"
+    android:background="@drawable/memo_background">
+
+    <Button
+        android:id="@+id/buttonLogIn"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="332dp"
+        android:text="@string/logIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:layout_width="270dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="420dp"
+        android:text="@string/signIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

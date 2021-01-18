@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_storys">
+
+
+
+    <fragment
+        android:id="@+id/nav_storys"
+        android:name="gautero.tuma.memo.ui.storys.StoryFragment"
+        android:label="@string/story"
+        tools:layout="@layout/fragment_storys" />
+
+    <fragment
+        android:id="@+id/nav_Collection"
+        android:name="gautero.tuma.memo.ui.collection.CollectionFragment"
+        android:label="@string/Collection"
+        tools:layout="@layout/fragment_collection" />
+
+    <fragment
+        android:id="@+id/nav_newStory"
+        android:name="gautero.tuma.memo.ui.newStory.newStoryFragment"
+        android:label="@string/menu_newStorys"
+        tools:layout="@layout/fragment_newstory" />
+
+    <fragment
+        android:id="@+id/nav_editStory"
+        android:name="gautero.tuma.memo.ui.editStory.EditStoryFragment"
+        android:label="@string/menu_editStorys"
+        tools:layout="@layout/fragment_editstory" />
+</navigation>

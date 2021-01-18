@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">MEMO</string>
+    <string name="logIn">Iniciar Sesión</string>
+    <string name="signIn">Registrarse</string>
+    <string name="story">Historias</string>
+    <string name="Collection">Colección</string>
+    <string name="title_activity_feed">FeedActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_storys">Historias</string>
+    <string name="menu_newStorys">Crear Historia</string>
+    <string name="menu_editStorys">Editar Historia</string>
 </resources>
