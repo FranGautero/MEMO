@@ -51,7 +51,7 @@ public class StoryFragment extends Fragment {
     Post p5 = new Post("p5", "asd", "p1", R.drawable.product_example);
     Post p6 = new Post("p6", "asd", "p1", R.drawable.product_example);
 
-    
+
 
 
 }
