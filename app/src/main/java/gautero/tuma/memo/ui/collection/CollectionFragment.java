@@ -55,7 +55,7 @@ public class CollectionFragment extends Fragment {
 
 
         storyRecycler = root.findViewById(R.id.recyclerView_Collection);
-        StoryAdapter myAdapter = new StoryAdapter(this.getActivity(), posts);
+        CollectionAdapter myAdapter = new CollectionAdapter(this.getActivity(), posts);
         storyRecycler.setAdapter(myAdapter);
         storyRecycler.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 

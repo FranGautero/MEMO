@@ -17,5 +17,12 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_storys">Historias</string>
     <string name="menu_newStorys">Crear Historia</string>
-    <string name="menu_editStorys">Editar Historia</string>
+    <string name="menu_editStorys">Editar</string>
+    <string name="logOut">Cerrar Sesión</string>
+    <string name="toDo">Funciones por desarrollar</string>
+    <string name="friends">Amigos</string>
+    <string name="chat">Chat</string>
+    <string name="market">Tienda</string>
+    <string name="restauradores">Restauradores</string>
+    <string name="profile">Perfil</string>
 </resources>

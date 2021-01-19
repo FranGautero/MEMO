@@ -27,7 +27,7 @@ public class StoryFragment extends Fragment {
 
         ArrayList<Post> posts = new ArrayList<>();
 
-        Post p1 = new Post("UNA GUITARRA RE PIOLA", "asd", "Ricardo 420", R.drawable.product_example);
+        Post p1 = new Post("UNA GUITARRA RE PIOLA DE LOS AÑOS 80 RE PIOLA", "asd", "Ricardo 420", R.drawable.product_example);
         Post p2 = new Post("UNA GUITARRA RE PIOLA", "asd", "Ricardo 420", R.drawable.product_example);
         Post p3 = new Post("UNA GUITARRA RE PIOLA", "asd", "Ricardo 420", R.drawable.product_example);
         Post p4 = new Post("UNA GUITARRA RE PIOLA", "asd", "Ricardo 420", R.drawable.product_example);

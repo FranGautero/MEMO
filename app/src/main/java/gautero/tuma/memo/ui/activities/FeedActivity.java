@@ -34,7 +34,7 @@ public class FeedActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_Collection, R.id.nav_storys, R.id.nav_newStory, R.id.nav_editStory)
+                R.id.nav_Collection, R.id.nav_storys, R.id.nav_newStory/*, R.id.nav_editStory*/)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

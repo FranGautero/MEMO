@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group_top"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_storys"
@@ -19,9 +21,58 @@
             android:id="@+id/nav_newStory"
             android:icon="@drawable/ic_baseline_add_24"
             android:title="@string/menu_newStorys" />
-        <item
-            android:id="@+id/nav_editStory"
-            android:icon="@drawable/ic_baseline_edit_24"
-            android:title="@string/menu_editStorys" />
+<!--        <item-->
+<!--            android:id="@+id/nav_editStory"-->
+<!--            android:icon="@drawable/ic_baseline_edit_24"-->
+<!--            android:title="@string/menu_editStorys" />-->
     </group>
+
+    <item
+        android:title="@string/toDo">
+        <menu>
+    <group
+
+        android:checkableBehavior="single"
+        android:id="@+id/group_middle"
+        >
+        <item
+
+            android:id="@+id/menu_profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="@string/profile"
+            />
+        <item
+            android:visible="true"
+            android:id="@+id/menu_friends"
+            android:icon="@drawable/ic_baseline_people_24"
+            android:title="@string/friends"
+            />
+
+        <item
+            android:visible="true"
+            android:id="@+id/menu_market"
+            android:icon="@drawable/ic_baseline_build_24"
+            android:title="@string/market"
+            />
+        <item
+            android:visible="true"
+            android:id="@+id/menu_restauradores"
+            android:icon="@drawable/ic_baseline_work_24"
+            android:title="@string/restauradores"
+            />
+    </group>
+        </menu>
+    </item>
+
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/group_bottom"
+        >
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="@string/logOut"
+            />
+    </group>
+
 </menu>
