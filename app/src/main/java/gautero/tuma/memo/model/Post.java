@@ -1,6 +1,6 @@
 package gautero.tuma.memo.model;
 
-import android.graphics.Bitmap;
+
 
 public class Post {
     String Titulo;
@@ -13,6 +13,8 @@ public class Post {
         Historia = historia;
         Usiario = usiario;
         Imagen = imagen;
+
+
     }
 
     public String getTitulo() {
