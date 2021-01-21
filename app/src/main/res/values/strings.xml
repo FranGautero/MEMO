@@ -25,4 +25,11 @@
     <string name="market">Tienda</string>
     <string name="restauradores">Restauradores</string>
     <string name="profile">Perfil</string>
+
+    <string name="storyTitle">Título de la Historia</string>
+    <string name="selectFoto">Elegir Foto</string>
+    <string name="takeFoto">Sacar Foto</string>
+    <string name="storyDesc">Historia</string>
+    <string name="upload">Subir Historia</string>
+
 </resources>

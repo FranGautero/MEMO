@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.PostActivity"></activity>
+        <activity android:name=".ui.activities.EditStoryActivity"></activity>
+        <activity android:name=".ui.activities.PostActivity" />
         <activity
             android:name=".ui.activities.FeedActivity"
             android:label="@string/title_activity_feed"

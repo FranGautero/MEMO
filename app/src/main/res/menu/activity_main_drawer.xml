@@ -51,13 +51,13 @@
         <item
             android:visible="true"
             android:id="@+id/menu_market"
-            android:icon="@drawable/ic_baseline_build_24"
+            android:icon="@drawable/ic_baseline_work_24"
             android:title="@string/market"
             />
         <item
             android:visible="true"
             android:id="@+id/menu_restauradores"
-            android:icon="@drawable/ic_baseline_work_24"
+            android:icon="@drawable/ic_baseline_build_24"
             android:title="@string/restauradores"
             />
     </group>
