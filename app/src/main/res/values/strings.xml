@@ -31,5 +31,9 @@
     <string name="takeFoto">Sacar Foto</string>
     <string name="storyDesc">Historia</string>
     <string name="upload">Subir Historia</string>
+    <string name="mail">E-Mail</string>
+    <string name="passworwd">Contraseña</string>
+    <string name="Registration">Registro de Usuario</string>
+    <string name="UserNickname">Nombre de usaurio</string>
 
 </resources>

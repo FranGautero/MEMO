@@ -14,6 +14,7 @@ import gautero.tuma.memo.model.Post;
 
 public class LogInActivity extends AppCompatActivity {
     Button LogIn;
+    Button SignIn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,16 @@ public class LogInActivity extends AppCompatActivity {
         LogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LogInActivity.this, FeedActivity.class);
+                Intent i = new Intent(LogInActivity.this, UserLogInActivity.class);
+                startActivity(i);
+            }
+        });
+
+        SignIn = findViewById(R.id.buttonSignIn);
+        SignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LogInActivity.this, UserSignInActivity.class);
                 startActivity(i);
             }
         });
