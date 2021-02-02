@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,15 +42,34 @@ public class UserSignInActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener(UserSignInActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            }
-                        });
+
+                if (!email.getText().toString().isEmpty()) {
+                    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+                        Toast.makeText(UserSignInActivity.this, "Email Inválido", Toast.LENGTH_SHORT).show();
+
+                    }else {
+
+                        if(password.getText().toString().isEmpty()){
+                            Toast.makeText(UserSignInActivity.this, "Debe ingresar Contraseña", Toast.LENGTH_SHORT).show();
+                        }else{
+
+                            mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                    .addOnCompleteListener(UserSignInActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                        }
+                                    });
+                            Toast.makeText(UserSignInActivity.this, "Usuario Creado", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                    }
+                }else {
+                    Toast.makeText(UserSignInActivity.this, "Falta ingresar Email", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-
     }
 }

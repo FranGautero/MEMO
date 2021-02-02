@@ -3,10 +3,13 @@ package gautero.tuma.memo.ui.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,6 +24,9 @@ import gautero.tuma.memo.R;
 public class FeedActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    FirebaseUser mUser;
+    TextView usermail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,16 @@ public class FeedActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        View headerView = navigationView.getHeaderView(0);
+        if(mUser != null){
+            String User = mUser.getEmail();
+            usermail = (TextView) headerView.findViewById(R.id.textNameEmailUserDisplayed);
+            usermail.setText(User);
+        }
+
     }
 
 

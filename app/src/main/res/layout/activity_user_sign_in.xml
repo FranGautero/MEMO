@@ -80,6 +80,7 @@
             android:layout_marginTop="90dp"
             android:background="@color/colorPrimary"
             android:text="@string/signIn"
-            android:textColor="@color/colorWhite" />
+            android:textColor="@color/colorWhite"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
