@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 import gautero.tuma.memo.R;
 
@@ -36,23 +38,47 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.post_row, parent, false);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, PostActivity.class);
-                v.getContext().startActivity(i);
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(context, PostActivity.class);
+//                v.getContext().startActivity(i);
+//            }
+//        });
 
         return new StoryHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StoryHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StoryHolder holder, final int position) {
 
         holder.Titulo.setText(posts.get(position).getTitulo());
         holder.Usuario.setText(posts.get(position).getUsiario());
         holder.PostImage.setImageResource(R.drawable.product_example);
+
+        //La actividad se lanza con el post
+
+        holder.Titulo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, PostActivity.class);
+                Gson gson = new Gson();
+                String myJson = gson.toJson(posts.get(position));
+                i.putExtra("post", myJson);
+                v.getContext().startActivity(i);
+            }
+        });
+
+        holder.PostImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, PostActivity.class);
+                Gson gson = new Gson();
+                String myJson = gson.toJson(posts.get(position));
+                i.putExtra("post", myJson);
+                v.getContext().startActivity(i);
+            }
+        });
 
 
     }
