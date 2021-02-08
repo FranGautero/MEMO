@@ -5,14 +5,14 @@ package gautero.tuma.memo.model;
 public class Post {
     String Titulo;
     String Historia;
-    String Usiario;
-    int Imagen;
+    String Usuario;
+    String [] Imagenes;
 
-    public Post(String titulo, String historia, String usiario, int imagen) {
+    public Post(String titulo, String historia, String usiario, String [] imagen) {
         Titulo = titulo;
         Historia = historia;
-        Usiario = usiario;
-        Imagen = imagen;
+        Usuario = usiario;
+        Imagenes = imagen;
 
 
     }
@@ -34,18 +34,18 @@ public class Post {
     }
 
     public String getUsiario() {
-        return Usiario;
+        return Usuario;
     }
 
     public void setUsiario(String usiario) {
-        Usiario = usiario;
+        Usuario = usiario;
     }
 
-    public int getImagen() {
-        return Imagen;
+    public String[] getImagenes() {
+        return Imagenes;
     }
 
-    public void setImagen(int imagen) {
-        Imagen = imagen;
+    public void setImagenes(String[] imagenes) {
+        Imagenes = imagenes;
     }
 }
