@@ -48,6 +48,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.security.acl.Permission;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +71,8 @@ public class newStoryFragment extends Fragment {
 
     private long postID;
     EditText titulo, historia;
-    String usuario;
-    String [] imagenes;
+    String usuario, i1,i2,i3,i4,i5,i0;
+
     List<InputStream> inputStreams = new ArrayList<>();
 
     FirebaseUser mUser;
@@ -84,6 +85,7 @@ public class newStoryFragment extends Fragment {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(newStoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_newstory, container, false);
+
 
         //Primera Card---------------------
 
@@ -231,7 +233,7 @@ public class newStoryFragment extends Fragment {
 
                 String tituloString = titulo.getText().toString();
                 String historiaString = historia.getText().toString();
-                Post p1 = new Post(tituloString, historiaString, usuario, imagenes);
+                Post p1 = new Post(tituloString, historiaString, usuario, i0, i1,i2,i3,i4,i5);
                 rootNode.child(String.valueOf(postID)).setValue(p1);
                 Toast.makeText(getContext(), "Historia Subida", Toast.LENGTH_SHORT).show();
                 requireActivity().finish();
@@ -299,7 +301,35 @@ public class newStoryFragment extends Fragment {
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     // Get a URL to the uploaded content
                                     String downloadUrl = Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString();
+                                    String s = "i"+numerodeFoto;
+                                    switch (s){
+                                        case"i0": {
+                                            i0 = downloadUrl;
+                                            break;
+                                        }
+                                        case"i1": {
+                                            i1 = downloadUrl;
+                                            break;
+                                        }
+                                        case"i2": {
+                                            i2 = downloadUrl;
+                                            break;
+                                        }
+                                        case"i3": {
+                                            i3 = downloadUrl;
+                                            break;
+                                        }
+                                        case"i4": {
+                                            i4 = downloadUrl;
+                                            break;
+                                        }
+                                        case"i5": {
+                                            i5 = downloadUrl;
+                                            break;
+                                        }
+                                    }
                                 }
+
                             })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
