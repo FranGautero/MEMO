@@ -71,13 +71,13 @@ public class newStoryFragment extends Fragment {
 
     private long postID;
     EditText titulo, historia;
-    String usuario, i1,i2,i3,i4,i5,i0;
+    String usuario, i1, i2, i3, i4, i5, i0;
 
     List<InputStream> inputStreams = new ArrayList<>();
 
     FirebaseUser mUser;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference  rootNode = db.getReference().child("Posts");
+    private DatabaseReference rootNode = db.getReference().child("Posts");
     private StorageReference mStorageRef;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -94,7 +94,7 @@ public class newStoryFragment extends Fragment {
         card00.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card00, addFoto00,0 );
+                checkPermissionThenStartgallery(card00, addFoto00, 0);
 
             }
         });
@@ -102,7 +102,7 @@ public class newStoryFragment extends Fragment {
         addFoto00.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card00, addFoto00,0);
+                checkPermissionThenStartgallery(card00, addFoto00, 0);
             }
         });
 
@@ -156,7 +156,7 @@ public class newStoryFragment extends Fragment {
         addFoto10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card10, addFoto10,3);
+                checkPermissionThenStartgallery(card10, addFoto10, 3);
             }
         });
 
@@ -167,14 +167,14 @@ public class newStoryFragment extends Fragment {
         card11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card11, addFoto11,4);
+                checkPermissionThenStartgallery(card11, addFoto11, 4);
             }
         });
 
         addFoto11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card11, addFoto11,4);
+                checkPermissionThenStartgallery(card11, addFoto11, 4);
             }
         });
 
@@ -185,21 +185,20 @@ public class newStoryFragment extends Fragment {
         card12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card12,addFoto12,5);
+                checkPermissionThenStartgallery(card12, addFoto12, 5);
             }
         });
 
         addFoto12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkPermissionThenStartgallery(card12,addFoto12,5);
+                checkPermissionThenStartgallery(card12, addFoto12, 5);
             }
         });
 
         //alta del post en firebase
 
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
 
         titulo = root.findViewById(R.id.editTextTitulo);
@@ -233,10 +232,10 @@ public class newStoryFragment extends Fragment {
 
                 String tituloString = titulo.getText().toString();
                 String historiaString = historia.getText().toString();
-                Post p1 = new Post(tituloString, historiaString, usuario, i0, i1,i2,i3,i4,i5);
+                Post p1 = new Post(tituloString, historiaString, usuario, i0, i1, i2, i3, i4, i5);
                 rootNode.child(String.valueOf(postID)).setValue(p1);
                 Toast.makeText(getContext(), "Historia Subida", Toast.LENGTH_SHORT).show();
-                requireActivity().finish();
+                requireActivity().onBackPressed();
 
             }
         });
@@ -246,7 +245,7 @@ public class newStoryFragment extends Fragment {
 
     }
 
-    public void checkPermissionThenStartgallery(CardView cardView, FloatingActionButton floatingActionButton, int fotoNumber){
+    public void checkPermissionThenStartgallery(CardView cardView, FloatingActionButton floatingActionButton, int fotoNumber) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(requireActivity().getApplicationContext(),
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -294,49 +293,79 @@ public class newStoryFragment extends Fragment {
 
 
                         //creo path de la foto
-                        StorageReference filePath = mStorageRef.child("Fotos").child(String.valueOf(postID)+ numerodeFoto);
+                        StorageReference filePath = mStorageRef.child("Fotos").child(String.valueOf(postID) + numerodeFoto);
                         //subo la foto
-                            filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    // Get a URL to the uploaded content
-                                    String downloadUrl = Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString();
-                                    String s = "i"+numerodeFoto;
-                                    switch (s){
-                                        case"i0": {
-                                            i0 = downloadUrl;
-                                            break;
-                                        }
-                                        case"i1": {
-                                            i1 = downloadUrl;
-                                            break;
-                                        }
-                                        case"i2": {
-                                            i2 = downloadUrl;
-                                            break;
-                                        }
-                                        case"i3": {
-                                            i3 = downloadUrl;
-                                            break;
-                                        }
-                                        case"i4": {
-                                            i4 = downloadUrl;
-                                            break;
-                                        }
-                                        case"i5": {
-                                            i5 = downloadUrl;
-                                            break;
-                                        }
+                        filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                String downloadUrl = Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString();
+                                String s = "i" + numerodeFoto;
+                                switch (s) {
+                                    case "i0": {
+                                        i0 = downloadUrl;
+                                        i2 = "";
+                                        i3 = "";
+                                        i4 = "";
+                                        i5 = "";
+                                        i1 = "";
+                                        break;
+                                    }
+                                    case "i1": {
+                                        i1 = downloadUrl;
+                                        i0 = "";
+                                        i3 = "";
+                                        i4 = "";
+                                        i5 = "";
+                                        i2 = "";
+                                        break;
+                                    }
+                                    case "i2": {
+                                        i2 = downloadUrl;
+                                        i1 = "";
+                                        i3 = "";
+                                        i4 = "";
+                                        i5 = "";
+                                        i0 = "";
+                                        break;
+                                    }
+                                    case "i3": {
+                                        i3 = downloadUrl;
+                                        i2 = "";
+                                        i0 = "";
+                                        i4 = "";
+                                        i5 = "";
+                                        i1 = "";
+                                        break;
+                                    }
+                                    case "i4": {
+                                        i4 = downloadUrl;
+                                        i2 = "";
+                                        i0 = "";
+                                        i3 = "";
+                                        i5 = "";
+                                        i1 = "";
+                                        break;
+                                    }
+                                    case "i5": {
+                                        i5 = downloadUrl;
+                                        i2 = "";
+                                        i0 = "";
+                                        i4 = "";
+                                        i3 = "";
+                                        i1 = "";
+                                        break;
                                     }
                                 }
+                            }
 
-                            })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
 
                     } catch (Exception exception) {

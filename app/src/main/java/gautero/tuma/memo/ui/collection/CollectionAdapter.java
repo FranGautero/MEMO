@@ -45,7 +45,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.St
     public void onBindViewHolder(@NonNull CollectionAdapter.StoryHolder holder, final int position) {
 
         holder.Titulo.setText(posts.get(position).getTitulo());
-        holder.Usuario.setText(posts.get(position).getUsiario());
+        holder.Usuario.setText(posts.get(position).getUsuario());
 
         //aca hay que traer la primera foto de las foto y setearle como preview
         holder.PostImage.setImageResource(R.drawable.product_example);
