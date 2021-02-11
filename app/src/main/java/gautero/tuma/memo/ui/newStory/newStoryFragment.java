@@ -34,6 +34,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -85,6 +86,15 @@ public class newStoryFragment extends Fragment {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(newStoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_newstory, container, false);
+
+        //Inicializar URLS
+
+        i0 = "";
+        i2 = "";
+        i3 = "";
+        i4 = "";
+        i5 = "";
+        i1 = "";
 
 
         //Primera Card---------------------
@@ -293,67 +303,38 @@ public class newStoryFragment extends Fragment {
 
 
                         //creo path de la foto
-                        StorageReference filePath = mStorageRef.child("Fotos").child(String.valueOf(postID) + numerodeFoto);
+                        final StorageReference filePath = mStorageRef.child("Fotos").child(String.valueOf(postID) + numerodeFoto);
                         //subo la foto
                         filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
-                                String downloadUrl = Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString();
+                                String downloadUrl = filePath.toString();
+//                                String downloadUrl = Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString();
                                 String s = "i" + numerodeFoto;
                                 switch (s) {
                                     case "i0": {
                                         i0 = downloadUrl;
-                                        i2 = "";
-                                        i3 = "";
-                                        i4 = "";
-                                        i5 = "";
-                                        i1 = "";
                                         break;
                                     }
                                     case "i1": {
                                         i1 = downloadUrl;
-                                        i0 = "";
-                                        i3 = "";
-                                        i4 = "";
-                                        i5 = "";
-                                        i2 = "";
                                         break;
                                     }
                                     case "i2": {
                                         i2 = downloadUrl;
-                                        i1 = "";
-                                        i3 = "";
-                                        i4 = "";
-                                        i5 = "";
-                                        i0 = "";
                                         break;
                                     }
                                     case "i3": {
                                         i3 = downloadUrl;
-                                        i2 = "";
-                                        i0 = "";
-                                        i4 = "";
-                                        i5 = "";
-                                        i1 = "";
                                         break;
                                     }
                                     case "i4": {
                                         i4 = downloadUrl;
-                                        i2 = "";
-                                        i0 = "";
-                                        i3 = "";
-                                        i5 = "";
-                                        i1 = "";
                                         break;
                                     }
                                     case "i5": {
                                         i5 = downloadUrl;
-                                        i2 = "";
-                                        i0 = "";
-                                        i4 = "";
-                                        i3 = "";
-                                        i1 = "";
                                         break;
                                     }
                                 }
@@ -363,6 +344,7 @@ public class newStoryFragment extends Fragment {
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception exception) {
+                                        Log.d("imagenuipload", exception.getMessage());
                                         Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });

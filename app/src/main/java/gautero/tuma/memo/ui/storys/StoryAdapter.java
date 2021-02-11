@@ -2,17 +2,23 @@ package gautero.tuma.memo.ui.storys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -28,6 +34,7 @@ import java.util.Objects;
 import gautero.tuma.memo.R;
 
 import gautero.tuma.memo.model.Post;
+import gautero.tuma.memo.ui.activities.FeedActivity;
 import gautero.tuma.memo.ui.activities.PostActivity;
 
 
@@ -66,22 +73,23 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StoryHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final StoryHolder holder, final int position) {
 
-        holder.Titulo.setText(posts.get(position).getTitulo());
-        holder.Usuario.setText(posts.get(position).getUsuario());
+
 
         //recuperar primer imagen del post y setearle al view
+
+
 
         mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(posts.get(position).getImg0());
 
         try {
-            File localFile = File.createTempFile("imagenPost"+ position, "jpg");
+            final File localFile = File.createTempFile("imagenPost"+ position, "jpg");
             mStorageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Successfully downloaded data to local file
-                    // ...
+                    Drawable d = Drawable.createFromPath(localFile.getPath());
+                    holder.imageLayout.setBackground(d);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -91,11 +99,39 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
                 }
             });
 
-            holder.PostImage.setImageURI(Uri.fromFile(localFile));
         } catch (IOException e) {
            Log.d("error de imagen", Objects.requireNonNull(e.getMessage()));
         }
 
+
+
+//        final long THREE_MEGABYTE = 3 * 1024 * 1024;
+//        mStorageRef.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                // Exito
+//                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                DisplayMetrics dm = new DisplayMetrics();
+//
+//               StoryFragment.fa.getWindowManager().getDefaultDisplay().getMetrics(dm);
+//
+//                holder.PostImage.setMinimumHeight(dm.heightPixels);
+//                holder.PostImage.setMinimumWidth(dm.widthPixels);
+//                holder.PostImage.setImageBitmap(bm);
+//
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                holder.PostImage.setImageResource(R.drawable.product_example);
+//            }
+//        });
+
+
+
+        holder.Titulo.setText(posts.get(position).getTitulo());
+        holder.Usuario.setText(posts.get(position).getUsuario());
 
 
 
@@ -112,7 +148,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
             }
         });
 
-        holder.PostImage.setOnClickListener(new View.OnClickListener() {
+        holder.imageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, PostActivity.class);
@@ -135,14 +171,16 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
     public static class StoryHolder extends RecyclerView.ViewHolder{
 
         TextView Titulo, Usuario;
-        ImageView PostImage;
+        //ImageView PostImage;
+        LinearLayout imageLayout;
 
         public StoryHolder(@NonNull View itemView) {
             super(itemView);
 
             Titulo = itemView.findViewById(R.id.textTituloPost);
             Usuario = itemView.findViewById(R.id.textUsuario);
-            PostImage = itemView.findViewById(R.id.imagePost);
+            //PostImage = itemView.findViewById(R.id.imagePost);
+            imageLayout = itemView.findViewById(R.id.imageLayout);
 
         }
     }

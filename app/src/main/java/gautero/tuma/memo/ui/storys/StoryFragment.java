@@ -1,5 +1,6 @@
 package gautero.tuma.memo.ui.storys;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,10 +35,14 @@ public class StoryFragment extends Fragment {
 
     List<Post> posts, posts2;
 
+    public static Activity fa;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         StoryViewModel storyViewModel = ViewModelProviders.of(this).get(StoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_storys, container, false);
+
+        fa = requireActivity();
 
         //TODO se recuperan los post de todos los usuarios por orden cronológico
 

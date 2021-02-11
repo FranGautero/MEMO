@@ -1,5 +1,6 @@
 package gautero.tuma.memo.ui.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -27,6 +28,7 @@ public class FeedActivity extends AppCompatActivity {
 
     FirebaseUser mUser;
     TextView usermail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
