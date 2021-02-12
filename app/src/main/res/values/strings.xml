@@ -36,5 +36,6 @@
     <string name="Registration">Registro de Usuario</string>
     <string name="UserNickname">Nombre de usaurio</string>
     <string name="Comments">Comentarios</string>
+    <string name="UpdateStory">Guardar Historia</string>
 
 </resources>

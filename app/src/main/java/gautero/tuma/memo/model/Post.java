@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 import java.util.List;
 
 public class Post {
-
+    Long idPost;
     String Historia;
     String img0;
     String img1;
@@ -16,8 +16,9 @@ public class Post {
     String Titulo;
     String Usuario;
 
-    public Post(String titulo, String historia, String usuario, String imgn0, String imgn1, String imgn2, String imgn3, String imgn4, String imgn5) {
+    public Post(String titulo, String historia, String usuario, String imgn0, String imgn1, String imgn2, String imgn3, String imgn4, String imgn5, Long id) {
 
+        idPost = id;
         Historia = historia;
         img0 = imgn0;
         img1 = imgn1;
@@ -29,6 +30,14 @@ public class Post {
         Usuario = usuario;
 
 
+    }
+
+    public Long getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(Long idPost) {
+        this.idPost = idPost;
     }
 
     public String getTitulo() {

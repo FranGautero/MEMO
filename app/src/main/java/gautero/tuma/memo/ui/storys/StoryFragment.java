@@ -33,7 +33,7 @@ public class StoryFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference rootNode = database.getReference().child("Posts");
 
-    List<Post> posts, posts2;
+    List<Post> posts;
 
     public static Activity fa;
 
@@ -80,8 +80,10 @@ public class StoryFragment extends Fragment {
                    String img4 = dataSnapshot.child("img3").getValue().toString();
                    String img5 = dataSnapshot.child("img4").getValue().toString();
                    String img6 = dataSnapshot.child("img5").getValue().toString();
+                   String id = dataSnapshot.child("idPost").getValue().toString();
+                   Long idPost = Long.parseLong(id);
 
-                   Post p = new Post(titulo, historia, usuario, img1, img2, img3, img4, img5, img6);
+                   Post p = new Post(titulo, historia, usuario, img1, img2, img3, img4, img5, img6, idPost);
 //                 Post p = dataSnapshot.getValue(Post.class);
 
                    posts.add(p);

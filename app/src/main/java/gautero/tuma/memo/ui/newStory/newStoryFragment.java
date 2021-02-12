@@ -2,6 +2,7 @@ package gautero.tuma.memo.ui.newStory;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
@@ -44,6 +45,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -69,12 +71,11 @@ public class newStoryFragment extends Fragment {
     CardView card00, card01, card02, card10, card11, card12, cvGlobalImSoSorry;
     static final int GALERIA_REQUEST_PERMISSION = 1;
     static final int GALERIA_REQUEST = 2;
-
     private long postID;
     EditText titulo, historia;
     String usuario, i1, i2, i3, i4, i5, i0;
 
-    List<InputStream> inputStreams = new ArrayList<>();
+
 
     FirebaseUser mUser;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -242,7 +243,7 @@ public class newStoryFragment extends Fragment {
 
                 String tituloString = titulo.getText().toString();
                 String historiaString = historia.getText().toString();
-                Post p1 = new Post(tituloString, historiaString, usuario, i0, i1, i2, i3, i4, i5);
+                Post p1 = new Post(tituloString, historiaString, usuario, i0, i1, i2, i3, i4, i5, postID);
                 rootNode.child(String.valueOf(postID)).setValue(p1);
                 Toast.makeText(getContext(), "Historia Subida", Toast.LENGTH_SHORT).show();
                 requireActivity().onBackPressed();
@@ -305,6 +306,9 @@ public class newStoryFragment extends Fragment {
                         //creo path de la foto
                         final StorageReference filePath = mStorageRef.child("Fotos").child(String.valueOf(postID) + numerodeFoto);
                         //subo la foto
+                        final ProgressDialog progressDialog = new ProgressDialog(requireActivity());
+                        progressDialog.setTitle("Cargando Imagen");
+
                         filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -338,6 +342,7 @@ public class newStoryFragment extends Fragment {
                                         break;
                                     }
                                 }
+                                progressDialog.dismiss();
                             }
 
                         })
@@ -347,7 +352,13 @@ public class newStoryFragment extends Fragment {
                                         Log.d("imagenuipload", exception.getMessage());
                                         Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                });
+                                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                progressDialog.show();
+                            }
+                        });
 
 
                     } catch (Exception exception) {

@@ -35,15 +35,10 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imagePost"
-                            android:layout_width="99dp"
-                            android:layout_height="90dp" />
-                    </LinearLayout>
+                        android:id="@+id/imageLayoutEdit"
+                        android:layout_width="99dp"
+                        android:layout_height="90dp"
+                        android:orientation="vertical"/>
 
                     <LinearLayout
                         android:layout_width="180dp"

@@ -52,28 +52,6 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         if(!Urls.get(position).isEmpty()) {
             mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(Urls.get(position));
 
-//        final long THREE_MEGABYTE = 3 * 1024 * 1024;
-//        mStorageRef.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                // Exito
-//                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                DisplayMetrics dm = new DisplayMetrics();
-//
-//                context.getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//                holder.image.setMinimumHeight(dm.heightPixels);
-//                holder.image.setMinimumWidth(dm.widthPixels);
-//                holder.image.setImageBitmap(bm);
-//
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                holder.image.setImageResource(R.drawable.product_example);
-//            }
-//        });
 
             try {
                 final File localFile = File.createTempFile("imagenPost" + position, "jpg");
@@ -81,7 +59,11 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                         Drawable d = Drawable.createFromPath(localFile.getPath());
+                        DisplayMetrics dm = new DisplayMetrics();
+                        holder.image.setMaxHeight(dm.heightPixels);
+                        holder.image.setMaxWidth(dm.widthPixels);
                         holder.image.setBackground(d);
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

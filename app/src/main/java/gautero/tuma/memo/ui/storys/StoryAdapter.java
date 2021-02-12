@@ -105,29 +105,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
 
 
 
-//        final long THREE_MEGABYTE = 3 * 1024 * 1024;
-//        mStorageRef.getBytes(THREE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                // Exito
-//                Bitmap bm = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-//                DisplayMetrics dm = new DisplayMetrics();
-//
-//               StoryFragment.fa.getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//                holder.PostImage.setMinimumHeight(dm.heightPixels);
-//                holder.PostImage.setMinimumWidth(dm.widthPixels);
-//                holder.PostImage.setImageBitmap(bm);
-//
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                holder.PostImage.setImageResource(R.drawable.product_example);
-//            }
-//        });
-
 
 
         holder.Titulo.setText(posts.get(position).getTitulo());

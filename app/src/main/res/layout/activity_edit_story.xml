@@ -6,4 +6,222 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.EditStoryActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:id="@+id/editTextTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/storyTitle"
+                android:autofillHints="@string/storyTitle" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/gridfotos"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                app:columnCount="3"
+                app:rowCount="2"
+                >
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto00"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        app:fabSize="mini" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto01"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        android:scaleType="center"
+                        app:fabSize="mini"/>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto02"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="2"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="0"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        android:scaleType="center"
+                        app:fabSize="mini"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto10"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="0"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        android:scaleType="center"
+                        app:fabSize="mini"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto11"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="1"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        android:scaleType="center"
+                        app:fabSize="mini"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foto12"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="10dp"
+                    app:layout_column="2"
+                    app:layout_columnWeight="1"
+                    app:layout_gravity="fill"
+                    app:layout_row="1"
+                    app:layout_rowWeight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="5dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_baseline_add_24_2"
+                        android:scaleType="center"
+                        app:fabSize="mini"/>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <EditText
+                android:id="@+id/editTextTextMultiLineDEscHistoria"
+                android:layout_width="match_parent"
+                android:layout_height="336dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/storyDesc"
+                android:inputType="textMultiLine"
+                android:autofillHints="@string/storyDesc" />
+
+            <Button
+                android:id="@+id/buttonUpload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/UpdateStory"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/colorWhite"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
