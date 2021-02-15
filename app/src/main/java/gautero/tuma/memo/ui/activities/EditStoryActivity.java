@@ -90,11 +90,12 @@ public class EditStoryActivity extends AppCompatActivity {
         historia.setText(post.getHistoria());
 
         i0 = post.getImg0();
-        i2 = post.getImg1();
-        i3 = post.getImg2();
-        i4 = post.getImg3();
-        i5 = post.getImg4();
-        i1 = post.getImg5();
+        i1 = post.getImg1();
+        i2 = post.getImg2();
+        i3 = post.getImg3();
+        i4 = post.getImg4();
+        i5 = post.getImg5();
+
 
         Urls = new ArrayList<>();
 
