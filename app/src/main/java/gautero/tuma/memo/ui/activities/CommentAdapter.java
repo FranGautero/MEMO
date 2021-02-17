@@ -31,32 +31,35 @@ import gautero.tuma.memo.ui.storys.StoryAdapter;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentHolder> {
 
-    List<Comment> comments;
+    List<Comment> coments;
 
     Context context;
 
-    public CommentAdapter(Context ct, List<Comment> c){
-        comments = c;
-        context = ct;
-    }
+    StorageReference mStorageRef;
 
+    public CommentAdapter(Context ct, List<Comment> c){
+        this.coments = c;
+        this.context = ct;
+    }
 
     @NonNull
     @Override
-    public CommentAdapter.CommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.comment_row, parent, false);
-
-        return new CommentAdapter.CommentHolder(view);
+        return new CommentHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final CommentHolder holder, int position) {
 
-        StorageReference mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(comments.get(position).getProfilePic());
+        holder.texto.setText(coments.get(position).getComment());
+        holder.usuario.setText(coments.get(position).getUsuario());
+
+        mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl(coments.get(position).getProfilePic());
 
         try {
-            final File localFile = File.createTempFile("imagenPost"+ position, "jpg");
+            final File localFile = File.createTempFile("imagenPost" + position, "jpg");
             mStorageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -74,14 +77,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
             Log.d("error de imagen", Objects.requireNonNull(e.getMessage()));
         }
 
-        holder.texto.setText(comments.get(position).getComment());
-        holder.usuario.setText(comments.get(position).getUsuario());
+
 
     }
 
     @Override
     public int getItemCount() {
-        return comments.size();
+        return coments.size();
     }
 
     public static class CommentHolder extends RecyclerView.ViewHolder {
@@ -91,9 +93,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
 
         public CommentHolder(@NonNull View itemView) {
             super(itemView);
-            texto = itemView.findViewById(R.id.comment);
+
+            texto = itemView.findViewById(R.id.textComentario);
             usuario = itemView.findViewById(R.id.userComment);
             cardView = itemView.findViewById(R.id.profileCommentrow);
         }
     }
 }
+

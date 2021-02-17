@@ -11,12 +11,15 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +60,7 @@ public class PostActivity extends AppCompatActivity {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference rootNode = db.getReference().child("Comments");
     private long commentID;
-    private String idPost;
+    private Long idPost;
     RecyclerView comentarios;
     List<Comment> coments;
 
@@ -67,15 +70,73 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+
         // recuperar datos del post que fue abierto
 
         titulo = findViewById(R.id.textViewPostTitle);
         historia = findViewById(R.id.textViewPostStory);
         Gson gson = new Gson();
         final Post post = gson.fromJson(getIntent().getStringExtra("post"), Post.class);
-        idPost = String.valueOf(post.getIdPost());
+        idPost = post.getIdPost();
         titulo.setText(post.getTitulo());
         historia.setText(post.getHistoria());
+
+
+        //Creo lista para el adapter del viewPager
+
+        imagesUrls = new ArrayList<>();
+        imagesUrls.add(post.getImg0());
+        imagesUrls.add(post.getImg1());
+        imagesUrls.add(post.getImg2());
+        imagesUrls.add(post.getImg3());
+        imagesUrls.add(post.getImg4());
+        imagesUrls.add(post.getImg5());
+
+        viewPager2 = findViewById(R.id.imagesPager);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(imagesUrls, this);
+
+        viewPager2.setAdapter(adapter);
+        viewPager2.setClipToPadding(false);
+        viewPager2.setClipChildren(false);
+        viewPager2.setOffscreenPageLimit(3);
+        viewPager2.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        transformer.addTransformer(new MarginPageTransformer(8));
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
+
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float v = 1 - Math.abs(position);
+                page.setScaleY(0.8f + v * 0.2f);
+            }
+        });
+
+        viewPager2.setPageTransformer(transformer);
+
+
+        //crear lista de comentarios
+
+        coments = new ArrayList<>();
+
+//        Comment c = new Comment();
+//        c.setProfilePic("gs://memo-7be26.appspot.com/ProfilePics/asd@asd.com");
+//        c.setComment("asdasd");
+//        c.setUsuario("asd@asd.com");
+//
+//        coments.add(c);
+
+
+        CommentAdapter commentAdapter = new CommentAdapter(this, coments);
+
+        comentarios = findViewById(R.id.listComments);
+        comentarios.setLayoutManager(new LinearLayoutManager(this));
+        comentarios.setAdapter(commentAdapter);
+
+
+        getDatabaseData();
+
 
         // setear el comentario con la foto de perfil del usuario
 
@@ -104,28 +165,6 @@ public class PostActivity extends AppCompatActivity {
             Log.d("error de imagen", Objects.requireNonNull(e.getMessage()));
         }
 
-        //crear lista de comentarios
-        coments = new ArrayList<>();
-
-        Comment c = new Comment();
-        c.setProfilePic("gs://memo-7be26.appspot.com/ProfilePics/asd@asd.com");
-        c.setIdComment((long) 0);
-        c.setComment("asdasd");
-        c.setUsuario("asd@asd.com");
-        c.setIdPost((long) 0);
-        coments.add(c);
-
-
-
-        comentarios = findViewById(R.id.listComments);
-        CommentAdapter commentAdapter = new CommentAdapter(this, coments);
-        comentarios.setAdapter(commentAdapter);
-        comentarios.setLayoutManager(new LinearLayoutManager(this));
-
-        getDatabaseData();
-
-
-
         // subir el comment cuando se hace click en el boton
 
         rootNode.addValueEventListener(new ValueEventListener() {
@@ -153,52 +192,18 @@ public class PostActivity extends AppCompatActivity {
                 String texto = comentario.getText().toString();
                 comment.setComment(texto);
                 comment.setUsuario(mUser.getEmail());
-                rootNode.child(String.valueOf(commentID)).setValue(comment );
+                rootNode.child(String.valueOf(commentID)).setValue(comment);
                 getDatabaseData();
                 comentario.getText().clear();
                 Toast.makeText(PostActivity.this, "Comentario Hecho", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-        //Creo lista para el adapter del viewPager
-
-        imagesUrls = new ArrayList<>();
-
-        imagesUrls.add(post.getImg0());
-        imagesUrls.add(post.getImg1());
-        imagesUrls.add(post.getImg2());
-        imagesUrls.add(post.getImg3());
-        imagesUrls.add(post.getImg4());
-        imagesUrls.add(post.getImg5());
-
-        viewPager2 = findViewById(R.id.imagesPager);
-
-        ViewPagerAdapter adapter = new ViewPagerAdapter(imagesUrls, this);
-
-        viewPager2.setAdapter(adapter);
-        viewPager2.setClipToPadding(false);
-        viewPager2.setClipChildren(false);
-        viewPager2.setOffscreenPageLimit(3);
-        viewPager2.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-        CompositePageTransformer transformer = new CompositePageTransformer();
-        transformer.addTransformer(new MarginPageTransformer(8));
-        transformer.addTransformer(new ViewPager2.PageTransformer(){
-
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float v = 1 - Math.abs(position);
-                page.setScaleY(0.8f + v * 0.2f);
-            }
-        });
-
-        viewPager2.setPageTransformer(transformer);
     }
 
-    public void getDatabaseData(){
+    public void getDatabaseData() {
         coments.clear();
+
         rootNode.orderByChild("idPost").equalTo(idPost).addChildEventListener(new ChildEventListener() {
 
 
