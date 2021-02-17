@@ -5,6 +5,15 @@ public class Comment {
     String comment;
     String usuario;
     String profilePic;
+    Long idPost;
+
+    public Long getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(Long idPost) {
+        this.idPost = idPost;
+    }
 
     public Long getIdComment() {
         return idComment;

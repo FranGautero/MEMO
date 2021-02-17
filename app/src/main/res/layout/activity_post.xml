@@ -73,11 +73,53 @@
                 android:id="@+id/textViewComentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"
                 android:text="@string/Comments" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/profileComment"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="5dp">
+
+                </androidx.cardview.widget.CardView>
+
+                <EditText
+                    android:id="@+id/editTextComment"
+                    android:layout_width="243dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:autofillHints="@string/MakeComment"
+                    android:ems="10"
+                    android:hint="@string/MakeComment"
+                    android:inputType="textPersonName" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonPostComment"
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/ic_baseline_chat_24" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listComments"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
 
         </LinearLayout>
     </ScrollView>

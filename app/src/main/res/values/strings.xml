@@ -37,5 +37,6 @@
     <string name="UserNickname">Nombre de usaurio</string>
     <string name="Comments">Comentarios</string>
     <string name="UpdateStory">Guardar Historia</string>
+    <string name="MakeComment">Escribe un Comentario</string>
 
 </resources>

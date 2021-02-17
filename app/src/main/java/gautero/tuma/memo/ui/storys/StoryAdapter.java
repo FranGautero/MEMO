@@ -61,14 +61,6 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryHolder>
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.post_row, parent, false);
 
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(context, PostActivity.class);
-//                v.getContext().startActivity(i);
-//            }
-//        });
-
         return new StoryHolder(view);
     }
 
