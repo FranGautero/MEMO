@@ -77,7 +77,7 @@ public class newStoryFragment extends Fragment {
 
 
 
-    FirebaseUser mUser;
+    private FirebaseUser mUser;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference rootNode = db.getReference().child("Posts");
     private StorageReference mStorageRef;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -16,11 +17,17 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -44,6 +51,9 @@ public class FeedActivity extends AppCompatActivity {
     ImageView profilePic;
     TextView usermail;
 
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private DatabaseReference rootNode = db.getReference().child("LoggedUsers");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +62,15 @@ public class FeedActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_Collection, R.id.nav_storys, R.id.nav_newStory/*, R.id.nav_editStory*/)
+                R.id.nav_Collection, R.id.nav_storys, R.id.nav_newStory, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        final NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -97,6 +107,34 @@ public class FeedActivity extends AppCompatActivity {
             }
 
         }
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id==R.id.nav_logout){
+                    rootNode.child(mUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot appleSnapshot: snapshot.getChildren()) {
+                                appleSnapshot.getRef().removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                }
+                NavigationUI.onNavDestinationSelected(item ,navController);
+                //This is for closing the drawer after acting on it
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
     }
 
 

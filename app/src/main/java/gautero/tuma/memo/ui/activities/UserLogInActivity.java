@@ -15,8 +15,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import gautero.tuma.memo.R;
+import gautero.tuma.memo.notifications.MyFirebaseMassagingService;
 
 public class UserLogInActivity extends AppCompatActivity {
 
@@ -48,8 +50,9 @@ public class UserLogInActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-
+                                    MyFirebaseMassagingService service = new MyFirebaseMassagingService();
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    service.onNewToken(FirebaseInstanceId.getInstance().getToken());
                                     Intent i = new Intent(UserLogInActivity.this, FeedActivity.class);
                                     startActivity(i);
                                 } else {
