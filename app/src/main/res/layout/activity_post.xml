@@ -23,7 +23,8 @@
                 android:layout_marginTop="25dp"
                 android:gravity="center"
                 android:text="@string/storyDesc"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textColor="@color/oscuro"/>
 
             <View
                 android:id="@+id/divider"
@@ -58,6 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:textColor="@color/oscuro"
+                android:textSize="18sp"
                 android:text="@string/storyDesc"
                 android:textStyle="italic" />
 
@@ -96,23 +99,28 @@
                 <EditText
                     android:id="@+id/editTextComment"
                     android:layout_width="192dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="15dp"
                     android:autofillHints="@string/MakeComment"
                     android:ems="10"
                     android:hint="@string/MakeComment"
-                    android:inputType="textPersonName" />
+                    android:inputType="textMultiLine" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/imageButtonPostComment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_baseline_chat_24" />
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    android:text="@string/PublicComent"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="7dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorPrimary"
+                    tools:ignore="SmallSp" />
 
             </LinearLayout>
 

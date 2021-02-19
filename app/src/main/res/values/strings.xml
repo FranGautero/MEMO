@@ -38,5 +38,6 @@
     <string name="Comments">Comentarios</string>
     <string name="UpdateStory">Guardar Historia</string>
     <string name="MakeComment">Escribe un Comentario</string>
+    <string name="PublicComent">publicar</string>
 
 </resources>

@@ -6,4 +6,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGris">#912A23</color>
     <color name="GrisClaro">#8F8F8F</color>
+    <color name="oscuro">#202020</color>
 </resources>

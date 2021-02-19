@@ -64,7 +64,7 @@ public class PostActivity extends AppCompatActivity {
     private FirebaseUser mUser;
     private StorageReference mStorageRef;
     private CardView cv;
-    private ImageButton subirComment;
+    private Button subirComment;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference rootNode = db.getReference().child("Comments");
     private DatabaseReference usersNode = FirebaseDatabase.getInstance().getReference().child("LoggedUsers");
@@ -210,7 +210,6 @@ public class PostActivity extends AppCompatActivity {
                 comment.setComment(texto);
                 comment.setUsuario(mUser.getEmail());
                 rootNode.child(String.valueOf(commentID)).setValue(comment);
-                getDatabaseData();
                 comentario.getText().clear();
                 Toast.makeText(PostActivity.this, "Comentario Hecho", Toast.LENGTH_SHORT).show();
                 if(comment.getUsuario() != opUser){
@@ -289,7 +288,6 @@ public class PostActivity extends AppCompatActivity {
                 String postID = snapshot.child("idPost").getValue().toString();
                 Long idPost = Long.parseLong(postID);
                 Long commentId = Long.parseLong(idComment);
-
                 Comment comentario = new Comment();
                 comentario.setIdPost(idPost);
                 comentario.setUsuario(usuario);
