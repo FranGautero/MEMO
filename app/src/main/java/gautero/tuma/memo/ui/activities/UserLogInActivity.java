@@ -51,7 +51,6 @@ public class UserLogInActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     MyFirebaseMassagingService service = new MyFirebaseMassagingService();
-                                    FirebaseUser user = mAuth.getCurrentUser();
                                     service.onNewToken(FirebaseInstanceId.getInstance().getToken());
                                     Intent i = new Intent(UserLogInActivity.this, FeedActivity.class);
                                     startActivity(i);

@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.InputStream;
 
 import gautero.tuma.memo.R;
+import gautero.tuma.memo.notifications.MyFirebaseMassagingService;
 
 public class UserSignInActivity extends AppCompatActivity {
 
@@ -55,6 +57,8 @@ public class UserSignInActivity extends AppCompatActivity {
     static final int GALERIA_REQUEST = 2;
 
     private StorageReference mStorageRef;
+
+    Uri selectedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +103,60 @@ public class UserSignInActivity extends AppCompatActivity {
                                         .addOnCompleteListener(UserSignInActivity.this, new OnCompleteListener<AuthResult>() {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
+
                                             }
                                         });
+
+                                mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                        .addOnCompleteListener(UserSignInActivity.this, new OnCompleteListener<AuthResult>() {
+
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+
+                                                    String s = email.getText().toString();
+                                                    //creo path de la foto
+                                                    final StorageReference filePath = mStorageRef.child("ProfilePics").child(s);
+                                                    //subo la foto
+                                                    final ProgressDialog progressDialog = new ProgressDialog(UserSignInActivity.this);
+                                                    progressDialog.setTitle("Creando Cuenta");
+
+                                                    filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            progressDialog.dismiss();
+                                                            MyFirebaseMassagingService service = new MyFirebaseMassagingService();
+                                                            service.onNewToken(FirebaseInstanceId.getInstance().getToken());
+                                                            Intent i = new Intent(UserSignInActivity.this, FeedActivity.class);
+                                                            startActivity(i);
+
+                                                        }
+
+                                                    })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception exception) {
+                                                                    Log.d("imagenuipload", exception.getMessage());
+                                                                    Toast.makeText(UserSignInActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                                            progressDialog.show();
+                                                        }
+                                                    });
+
+
+                                                } else {
+                                                    Toast.makeText(UserSignInActivity.this, "Email o Contraseña inválidos", Toast.LENGTH_SHORT).show();
+
+                                                }
+                                            }
+                                        });
+
                                 Toast.makeText(UserSignInActivity.this, "Usuario Creado", Toast.LENGTH_SHORT).show();
-                                finish();
+//                                finish();
                             }else Toast.makeText(UserSignInActivity.this, "Debe elegir foto de perfil", Toast.LENGTH_SHORT).show();
 
 
@@ -148,44 +202,14 @@ public class UserSignInActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if ((requestCode == GALERIA_REQUEST) && resultCode == Activity.RESULT_OK) {
             if (data != null) {
-                Uri selectedImage = data.getData();
+                selectedImage = data.getData();
                 if (selectedImage != null) {
                     try {
                         InputStream inputStream = this.getContentResolver().openInputStream(selectedImage);
                         Drawable d = Drawable.createFromStream(inputStream, selectedImage.toString());
                         profilePic.setBackground(d);
                         profilePic.setImageResource(0);
-
-                        String s = email.getText().toString();
-
-                        //creo path de la foto
-                        final StorageReference filePath = mStorageRef.child("ProfilePics").child(s);
-                        //subo la foto
-                        final ProgressDialog progressDialog = new ProgressDialog(this);
-                        progressDialog.setTitle("Cargando Imagen");
-
-                        filePath.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                t = true;
-                                progressDialog.dismiss();
-                            }
-
-                        })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        Log.d("imagenuipload", exception.getMessage());
-                                        Toast.makeText(UserSignInActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                                progressDialog.show();
-                            }
-                        });
-
+                        t=true;
 
                     } catch (Exception exception) {
                         Toast.makeText(UserSignInActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();

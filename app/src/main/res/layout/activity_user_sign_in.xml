@@ -111,7 +111,7 @@
         android:id="@+id/textView"
         android:layout_width="179dp"
         android:layout_height="88dp"
-        android:text="Haga click en la imagen para elegir foto de perfil"
+        android:text="Haga click en la imagen para elegir foto de perfil                                          *(ES OBLIGATORIO)"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

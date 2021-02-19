@@ -56,8 +56,8 @@
             <TextView
                 android:id="@+id/textViewPostStory"
                 android:layout_width="match_parent"
-                android:layout_height="217dp"
-                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
                 android:text="@string/storyDesc"
                 android:textStyle="italic" />
 

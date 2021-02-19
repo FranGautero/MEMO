@@ -46,7 +46,7 @@ public class MyFirebaseMassagingService extends FirebaseMessagingService {
         CharSequence sequence = "De: " + sender;
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplication(), "CommentNotify")
-                .setSmallIcon(R.mipmap.memo_launcher)
+                .setSmallIcon(R.drawable.memo_icon)
                 .setContentTitle(name2)
                 .setContentText(sequence)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
