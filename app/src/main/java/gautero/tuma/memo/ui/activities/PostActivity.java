@@ -47,22 +47,34 @@ import java.util.Objects;
 import gautero.tuma.memo.R;
 import gautero.tuma.memo.model.Comment;
 import gautero.tuma.memo.model.Post;
+import gautero.tuma.memo.notifications.APIservice;
+import gautero.tuma.memo.notifications.Client;
+import gautero.tuma.memo.notifications.Data;
+import gautero.tuma.memo.notifications.MyResponse;
+import gautero.tuma.memo.notifications.NotificationSender;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostActivity extends AppCompatActivity {
 
-    TextView titulo, historia;
-    List<String> imagesUrls;
-    ViewPager2 viewPager2;
+    private TextView titulo, historia;
+    private List<String> imagesUrls;
+    private ViewPager2 viewPager2;
     private FirebaseUser mUser;
     private StorageReference mStorageRef;
-    CardView cv;
-    ImageButton subirComment;
+    private CardView cv;
+    private ImageButton subirComment;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference rootNode = db.getReference().child("Comments");
+    private DatabaseReference usersNode = FirebaseDatabase.getInstance().getReference().child("LoggedUsers");
     private long commentID;
     private Long idPost;
-    RecyclerView comentarios;
-    List<Comment> coments;
+    private RecyclerView comentarios;
+    private List<Comment> coments;
+    private APIservice apiService;
+    private String opUser;
+    private String opToken;
 
 
     @Override
@@ -78,6 +90,7 @@ public class PostActivity extends AppCompatActivity {
         Gson gson = new Gson();
         final Post post = gson.fromJson(getIntent().getStringExtra("post"), Post.class);
         idPost = post.getIdPost();
+        opUser = post.getUsuario();
         titulo.setText(post.getTitulo());
         historia.setText(post.getHistoria());
 
@@ -181,6 +194,10 @@ public class PostActivity extends AppCompatActivity {
 
         subirComment = findViewById(R.id.imageButtonPostComment);
 
+        getOPToken();
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIservice.class);
+
         subirComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,9 +213,64 @@ public class PostActivity extends AppCompatActivity {
                 getDatabaseData();
                 comentario.getText().clear();
                 Toast.makeText(PostActivity.this, "Comentario Hecho", Toast.LENGTH_SHORT).show();
+                if(comment.getUsuario() != opUser){
+                sendNotification(opToken, comment.getUsuario(), comment.getUsuario());
+                }
             }
         });
 
+    }
+
+    public void getOPToken(){
+
+        usersNode.orderByChild("usuario").equalTo(opUser).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                opToken = snapshot.child("token").getValue().toString();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void sendNotification(String userToken, String title, String message){
+
+        Data data = new Data(title, message);
+
+        NotificationSender sender = new NotificationSender(data, userToken);
+        apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if(response.code() == 200){
+                    if(response.body().success != 1){
+                        Log.d("error notif", "fallo rey");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     public void getDatabaseData() {

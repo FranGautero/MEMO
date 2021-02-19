@@ -1,6 +1,12 @@
 package gautero.tuma.memo.notifications;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -9,10 +15,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import gautero.tuma.memo.R;
 import gautero.tuma.memo.model.Usuario;
 
 public class MyFirebaseMassagingService extends FirebaseMessagingService {
-
+    private String sender;
     private static String TAG = "messaging";
     private FirebaseUser mUser;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -20,48 +27,37 @@ public class MyFirebaseMassagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
 
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        sender = remoteMessage.getData().get("Message");
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "PushNotificationChannel";
+            String desc = "canal creado";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel;
+            channel = new NotificationChannel("CommentNotify", name, importance);
+            channel.setDescription(desc);
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                // scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                // handleNow();
-            }
-
+            NotificationManager notificationManager = getApplication().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
+        CharSequence name2 = "Haz recibido un comentario";
+        CharSequence sequence = "De: " + sender;
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplication(), "CommentNotify")
+                .setSmallIcon(R.mipmap.memo_launcher)
+                .setContentTitle(name2)
+                .setContentText(sequence)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplication());
+        notificationManager.notify(200, builder.build());
     }
 
-
-    /**
-     * Called if InstanceID token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the InstanceID token
-     * is initially generated so this is where you would retrieve the token.
-     */
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
         sendRegistrationToServer(token);
     }
 
