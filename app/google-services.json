@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "627488369590",
+    "project_id": "memo-7be26",
+    "storage_bucket": "memo-7be26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627488369590:android:24725d08b58c3dfc092f17",
+        "android_client_info": {
+          "package_name": "gautero.tuma.memo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627488369590-22i87ppqfg9qrbnpris7mv0mfq2ls59n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gautero.tuma.memo",
+            "certificate_hash": "a221d43d6c795f7f404c5686a4bc21dd5400c8ab"
+          }
+        },
+        {
+          "client_id": "627488369590-rvv9pf2et0k72tl5ehmeru7kefq91qee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNfcwmS0m7xsG6YnYod3d2qz7_NxPNdx4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627488369590-rvv9pf2et0k72tl5ehmeru7kefq91qee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
